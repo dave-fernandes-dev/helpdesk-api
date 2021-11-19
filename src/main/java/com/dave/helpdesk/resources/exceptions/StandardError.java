@@ -1,11 +1,13 @@
 package com.dave.helpdesk.resources.exceptions;
 
 import java.io.Serializable;
+import java.time.OffsetDateTime;
 
 public class StandardError implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long timestamp;
+	private OffsetDateTime offSetDateTime = OffsetDateTime.now();
 	private Integer status;
 	private String error;
 	private String message;
@@ -62,6 +64,14 @@ public class StandardError implements Serializable {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public OffsetDateTime getOffSetDateTime() {
+		return offSetDateTime;
+	}
+
+	public void setOffSetDateTime(OffsetDateTime offSetDateTime) {
+		this.offSetDateTime = offSetDateTime;
 	}
 
 }
