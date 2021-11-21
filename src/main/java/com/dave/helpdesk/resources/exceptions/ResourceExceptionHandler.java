@@ -38,8 +38,7 @@ public class ResourceExceptionHandler {
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<StandardError> validationErrors(MethodArgumentNotValidException ex,
-			HttpServletRequest request) {
+	public ResponseEntity<StandardError> validationErrors(MethodArgumentNotValidException ex, HttpServletRequest request) {
 
 		ValidationError errors = new ValidationError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), 
 				"Validation error", "Erro na validação dos campos", request.getRequestURI());
@@ -52,8 +51,7 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(AccessDeniedException.class)
-	public ResponseEntity<StandardError> accessDeniedException(AccessDeniedException ex,
-			HttpServletRequest request) {
+	public ResponseEntity<StandardError> accessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
 
 		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(),
 				"Acesso Negado!", ex.getMessage(), request.getRequestURI());
