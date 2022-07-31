@@ -54,7 +54,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.setHeader("access-control-expose-headers", "Authorization");
 		response.setHeader("Authorization", "Bearer " + token);
 		//add no body por causa do flutter flow permitir pegar o header da response
-		response.getWriter().append("Authorization:Bearer " + token);
+		response.getWriter().append("{\"token\":\"" + token + "\"}");
 	}
 	
 	@Override
