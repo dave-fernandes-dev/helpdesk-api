@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -39,7 +40,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			Authentication authentication = authenticationManager.authenticate(authenticationToken);
 			return authentication;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			//throw new RuntimeException(e);
+			throw new BadCredentialsException(e.toString());
 		}
 	}
 	
@@ -51,6 +53,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String token = jwtUtil.generateToken(username);
 		response.setHeader("access-control-expose-headers", "Authorization");
 		response.setHeader("Authorization", "Bearer " + token);
+		//add no body por causa do flutter flow permitir pegar o header da response
+		response.getWriter().append("Authorization:Bearer " + token);
 	}
 	
 	@Override

@@ -10,6 +10,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.dave.helpdesk.services.exceptions.BadCredentialsException;
+
+//import org.springframework.security.authentication.BadCredentialsException;
+
 
 import com.dave.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.dave.helpdesk.services.exceptions.ObjectnotFoundException;
@@ -22,7 +26,7 @@ public class ResourceExceptionHandler {
 			HttpServletRequest request) {
 
 		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(),
-				"Object Not Found", ex.getMessage(), request.getRequestURI());
+				"Object Not Found", ex.getMessage(), request.getRequestURI()+ "?" +request.getQueryString());
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
@@ -58,6 +62,17 @@ public class ResourceExceptionHandler {
 
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
 	}
+	
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<StandardError> badCredentialsException(BadCredentialsException ex, HttpServletRequest request) {
+
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(),
+				"Acesso Negado!: Usuário ou Senha Inválido", ex.getMessage(), request.getRequestURI());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+	}
+	
+
 }
 
 

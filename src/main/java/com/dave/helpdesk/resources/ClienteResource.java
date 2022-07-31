@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -58,6 +59,20 @@ public class ClienteResource {
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<ClienteDTO> delete(@PathVariable Integer id) {
 		service.delete(id); 
+		return ResponseEntity.noContent().build();
+	}
+	
+	//clientes/{id}?cpf
+	@DeleteMapping(value = "/{id}", params = "cpf")
+	public ResponseEntity<ClienteDTO> deleteByCpf(@PathVariable String id) {
+		service.deleteByCpf(id); 
+		return ResponseEntity.noContent().build();
+	}
+	
+	//clientes/?cpf={cpf}
+	@DeleteMapping()
+	public ResponseEntity<ClienteDTO> deleteByCpf2(@RequestParam(value = "cpf") String cpf) {
+		service.deleteByCpf(cpf); 
 		return ResponseEntity.noContent().build();
 	}
 
