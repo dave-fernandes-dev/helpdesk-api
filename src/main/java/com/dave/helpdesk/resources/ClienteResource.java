@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +49,17 @@ public class ClienteResource {
 		Cliente newObj = service.create(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	//clientes?with_response_body
+	@PostMapping(params = "with_response_body")
+	//@ResponseStatus(HttpStatus.CREATED) 
+	public ResponseEntity<ClienteDTO> createWithResponseDto(@Valid @RequestBody ClienteDTO objDTO) {
+		Cliente newObj = service.create(objDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
+		//return ResponseEntity(new ClienteDTO(newObj),uri.bui, HttpStatus.CREATED);
+		return ResponseEntity.created(uri).body(new ClienteDTO(newObj));
+		//return ResponseEntity.created().body(new ClienteDTO(obj));
 	}
 	
 	@PutMapping(value = "/{id}")
