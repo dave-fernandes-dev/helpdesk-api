@@ -29,12 +29,12 @@ public class ClienteService {
 
 	public Cliente findById(Integer id) {
 		Optional<Cliente> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado! Id: " + id));
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto nao encontrado! Id: " + id));
 	}
 	
 	public Cliente findByCpf(String cpf) {
 		Optional<Cliente> obj = repository.findByCpf(cpf);
-		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado! CPF: " + cpf));
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto nao encontrado! CPF: " + cpf));
 	}
 
 	public List<Cliente> findAll() {
@@ -71,7 +71,7 @@ public class ClienteService {
 
 	private void checaIntegridadeReferencial(Cliente obj) {
 		if (obj.getChamados().size() > 0) {
-			throw new DataIntegrityViolationException("Cliente possui ordens de serviço e não pode ser deletado!");
+			throw new DataIntegrityViolationException("Cliente possui ordens de servico e nao pode ser deletado!");
 		}
 	}
 
@@ -84,12 +84,12 @@ public class ClienteService {
 	private void validaPorCpfEEmail(ClienteDTO objDTO) {
 		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
 		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
-			throw new DataIntegrityViolationException("CPF("+ objDTO.getCpf()+ ") já cadastrado no sistema!" );
+			throw new DataIntegrityViolationException("CPF("+ objDTO.getCpf()+ ") ja cadastrado no sistema!" );
 		}
 
 		obj = pessoaRepository.findByEmail(objDTO.getEmail());
 		if (obj.isPresent() && obj.get().getId() != objDTO.getId()) {
-			throw new DataIntegrityViolationException("E-mail("+ objDTO.getEmail()+ ") já cadastrado no sistema!");
+			throw new DataIntegrityViolationException("E-mail("+ objDTO.getEmail()+ ") ja cadastrado no sistema!");
 		}
 	}
 

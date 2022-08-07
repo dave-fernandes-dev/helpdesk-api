@@ -30,7 +30,7 @@ public class ChamadoService {
 
 	public Chamado findById(Integer id) {
 		Optional<Chamado> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado! ID: " + id));
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto nao encontrado! ID: " + id));
 	}
 
 	public List<Chamado> findAll() {

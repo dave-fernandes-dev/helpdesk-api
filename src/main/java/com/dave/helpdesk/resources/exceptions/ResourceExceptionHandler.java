@@ -36,7 +36,7 @@ public class ResourceExceptionHandler {
 			HttpServletRequest request) {
 
 		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
-				"Violação de dados", ex.getMessage(), request.getRequestURI());
+				"Violacao de dados", ex.getMessage(), request.getRequestURI());
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
@@ -67,7 +67,7 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> badCredentialsException(BadCredentialsException ex, HttpServletRequest request) {
 
 		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(),
-				"Acesso Negado!: Usuário ou Senha Inválido", ex.getMessage(), request.getRequestURI());
+				"Acesso Negado!: Usuario ou Senha Invalido", ex.getMessage(), request.getRequestURI());
 
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
 	}
