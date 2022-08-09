@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dave.helpdesk.domain.Chamado;
+import com.dave.helpdesk.domain.Cliente;
 import com.dave.helpdesk.domain.dtos.ChamadoDTO;
+import com.dave.helpdesk.domain.dtos.ClienteDTO;
 import com.dave.helpdesk.services.ChamadoService;
 
 @RestController
@@ -46,6 +48,14 @@ public class ChamadoResource {
 		Chamado newObj = service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	//chamados?with_response_body
+	@PostMapping(params = "with_response_body")
+	public ResponseEntity<ChamadoDTO> createWithResponseDto(@Valid @RequestBody ChamadoDTO objDTO) {
+		Chamado newObj = service.create(objDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
+		return ResponseEntity.created(uri).body(new ChamadoDTO(newObj));
 	}
 
 	@PutMapping(value = "/{id}")
