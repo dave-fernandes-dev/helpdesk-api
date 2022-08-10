@@ -19,6 +19,11 @@ public class ChamadoDTO implements Serializable {
 	private LocalDate dataFechamento;
 	@NotNull(message = "O campo PRIORIDADE é requerido")
 	private Integer prioridade;
+	
+	@Transient
+	private String prioridadeDescricao;
+	
+	
 	@NotNull(message = "O campo STATUS é requerido")
 	private Integer status;
 	
@@ -47,6 +52,7 @@ public class ChamadoDTO implements Serializable {
 		this.dataAbertura = obj.getDataAbertura();
 		this.dataFechamento = obj.getDataFechamento();
 		this.prioridade = obj.getPrioridade().getCodigo();
+		this.prioridadeDescricao = obj.getPrioridade().getDescricao();
 		this.status = obj.getStatus().getCodigo();
 		this.statusDescricao = obj.getStatus().getDescricao();
 		this.titulo = obj.getTitulo();
@@ -87,6 +93,14 @@ public class ChamadoDTO implements Serializable {
 
 	public void setPrioridade(Integer prioridade) {
 		this.prioridade = prioridade;
+	}
+
+	public String getPrioridadeDescricao() {
+		return prioridadeDescricao;
+	}
+
+	public void setPrioridadeDescricao(String prioridadeDescricao) {
+		this.prioridadeDescricao = prioridadeDescricao;
 	}
 
 	public Integer getStatus() {
