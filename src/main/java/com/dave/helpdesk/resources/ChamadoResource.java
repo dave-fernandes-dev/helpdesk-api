@@ -47,6 +47,8 @@ public class ChamadoResource {
 	@GetMapping(params = "filter")
 	public ResponseEntity<List<ChamadoDTO>> findByFilter(@RequestParam(defaultValue = "") String titulo, @RequestParam(defaultValue = "0,1,2") String status ) {
 		
+		System.out.println("titulo:"+titulo+ " status:"+ status);
+		
 		//convert string para array de int
 		int statusArray[] = Arrays.stream(status.split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
 		
