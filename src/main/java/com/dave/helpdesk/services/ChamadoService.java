@@ -49,8 +49,13 @@ public class ChamadoService {
 	}
 
 	private Chamado newChamado(ChamadoDTO obj) {
+		
+		Tecnico tecnico = null;
+		Cliente cliente = null;
 
-		Tecnico tecnico = tecnicoService.findById(obj.getTecnico());
+		if (obj.getTecnico() != null) {
+			tecnico = tecnicoService.findById(obj.getTecnico());
+		}
 
 		// se nomeTecnico vier do FlutterFlow...
 		String nomeTecnico = obj.getNomeTecnico();
@@ -58,7 +63,9 @@ public class ChamadoService {
 			tecnico = tecnicoService.findByNome(nomeTecnico);
 		}
 
-		Cliente cliente = clienteService.findById(obj.getCliente());
+		if (obj.getCliente() != null) {
+			cliente = clienteService.findById(obj.getCliente());
+		}
 
 		// se nomeCliente vier do FlutterFlow...
 		String nomeCliente = obj.getNomeCliente();
