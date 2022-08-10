@@ -1,6 +1,7 @@
 package com.dave.helpdesk.resources;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -40,7 +42,20 @@ public class ChamadoResource {
 		List<ChamadoDTO> listDTO = list.stream().map(obj -> new ChamadoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
-
+	
+	//chamados?filter&titulo=titulo&status=0,1,2
+	@GetMapping(params = "filter")
+	public ResponseEntity<List<ChamadoDTO>> findByFilter(@RequestParam(defaultValue = "") String titulo, @RequestParam(defaultValue = "0,1,2") String status ) {
+		
+		//convert string para array de int
+		int statusArray[] = Arrays.stream(status.split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
+		
+		List<Chamado> list = service.findAllByFilter(titulo, statusArray);
+		List<ChamadoDTO> listDTO = list.stream().map(obj -> new ChamadoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
+	
+	
 	@PostMapping
 	public ResponseEntity<ChamadoDTO> create(@Valid @RequestBody ChamadoDTO obj) {
 		Chamado newObj = service.create(obj);

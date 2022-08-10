@@ -36,6 +36,10 @@ public class ChamadoService {
 	public List<Chamado> findAll() {
 		return repository.findAll();
 	}
+	
+	public List<Chamado> findAllByFilter(String titulo, int[] status) {
+		return repository.findByFilter(titulo, status);
+	}
 
 	public Chamado create(ChamadoDTO obj) {
 		return repository.save(newChamado(obj));
