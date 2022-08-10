@@ -53,16 +53,16 @@ public class ChamadoService {
 		Tecnico tecnico = tecnicoService.findById(obj.getTecnico());
 
 		// se nomeTecnico vier do FlutterFlow...
-		String nomeTecnico = obj.getNomeTecnico().trim();
-		if (!nomeTecnico.isBlank()) {
+		String nomeTecnico = obj.getNomeTecnico();
+		if (nomeTecnico !=null && !nomeTecnico.isBlank()) {
 			tecnico = tecnicoService.findByNome(nomeTecnico);
 		}
 
 		Cliente cliente = clienteService.findById(obj.getCliente());
 
 		// se nomeCliente vier do FlutterFlow...
-		String nomeCliente = obj.getNomeCliente().trim();
-		if (!nomeCliente.isBlank()) {
+		String nomeCliente = obj.getNomeCliente();
+		if (nomeCliente!=null && !nomeCliente.isBlank()) {
 			cliente = clienteService.findByNome(nomeCliente);
 		}
 
