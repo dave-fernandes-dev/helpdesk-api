@@ -3,6 +3,7 @@ package com.dave.helpdesk.domain.dtos;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.dave.helpdesk.domain.Chamado;
@@ -20,6 +21,10 @@ public class ChamadoDTO implements Serializable {
 	private Integer prioridade;
 	@NotNull(message = "O campo STATUS é requerido")
 	private Integer status;
+	
+	@Transient
+	private String statusDescricao;
+	
 	@NotNull(message = "O campo TITULO é requerido")
 	private String titulo;
 	@NotNull(message = "O campo OBSERVAÇÕES é requerido")
@@ -30,6 +35,8 @@ public class ChamadoDTO implements Serializable {
 	private Integer cliente;
 	private String nomeTecnico;
 	private String nomeCliente;
+	
+
 
 	public ChamadoDTO() {
 		super();
@@ -41,6 +48,7 @@ public class ChamadoDTO implements Serializable {
 		this.dataFechamento = obj.getDataFechamento();
 		this.prioridade = obj.getPrioridade().getCodigo();
 		this.status = obj.getStatus().getCodigo();
+		this.statusDescricao = obj.getStatus().getDescricao();
 		this.titulo = obj.getTitulo();
 		this.observacoes = obj.getObservacoes();
 		this.tecnico = obj.getTecnico().getId();
@@ -87,6 +95,14 @@ public class ChamadoDTO implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getStatusDescricao() {
+		return statusDescricao;
+	}
+
+	public void setStatusDescricao(String statusDescricao) {
+		this.statusDescricao = statusDescricao;
 	}
 
 	public String getTitulo() {
