@@ -49,6 +49,9 @@ public class ChamadoResource {
 		
 		System.out.println("titulo:"+titulo+ " status:"+ status);
 		
+		//trara null como parametro
+		status = status.contains("null") ? "0,1,2" : status;
+		
 		//convert string para array de int
 		int statusArray[] = Arrays.stream(status.split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
 		
