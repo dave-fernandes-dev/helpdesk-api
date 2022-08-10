@@ -33,4 +33,18 @@ public enum Status {
 		
 		throw new IllegalArgumentException("Status inválido");
 	}
+	
+	public static Status toEnum(String descricao) {
+		if(descricao == null) {
+			return null;
+		}
+		
+		for(Status x : Status.values()) {
+			if(descricao.equals(x.getDescricao())) {
+				return x;
+			}
+		}
+		
+		throw new IllegalArgumentException("Status inválido");
+	}
 }

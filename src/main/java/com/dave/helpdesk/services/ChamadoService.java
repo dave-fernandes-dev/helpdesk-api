@@ -49,18 +49,32 @@ public class ChamadoService {
 	}
 
 	private Chamado newChamado(ChamadoDTO obj) {
+
 		Tecnico tecnico = tecnicoService.findById(obj.getTecnico());
+
+		// se nomeTecnico vier do FlutterFlow...
+		String nomeTecnico = obj.getNomeTecnico().trim();
+		if (!nomeTecnico.isBlank()) {
+			tecnico = tecnicoService.findByNome(nomeTecnico);
+		}
+
 		Cliente cliente = clienteService.findById(obj.getCliente());
-		
+
+		// se nomeCliente vier do FlutterFlow...
+		String nomeCliente = obj.getNomeCliente().trim();
+		if (!nomeCliente.isBlank()) {
+			cliente = clienteService.findByNome(nomeCliente);
+		}
+
 		Chamado chamado = new Chamado();
-		if(obj.getId() != null) {
+		if (obj.getId() != null) {
 			chamado.setId(obj.getId());
 		}
-		
-		if(obj.getStatus().equals(2)) {
+
+		if (obj.getStatus().equals(Status.ENCERRADO)) {
 			chamado.setDataFechamento(LocalDate.now());
 		}
-		
+
 		chamado.setTecnico(tecnico);
 		chamado.setCliente(cliente);
 		chamado.setPrioridade(Prioridade.toEnum(obj.getPrioridade()));
@@ -71,19 +85,3 @@ public class ChamadoService {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

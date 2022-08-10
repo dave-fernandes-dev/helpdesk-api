@@ -9,4 +9,5 @@ import com.dave.helpdesk.domain.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
 	Optional<Cliente> findByCpf(String cpf);
+	Optional<Cliente> findByNome(String nome);
 }

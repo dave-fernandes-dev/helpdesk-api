@@ -3,10 +3,11 @@ package com.dave.helpdesk.domain.dtos;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.dave.helpdesk.domain.Chamado;
+import com.dave.helpdesk.domain.enums.Prioridade;
+import com.dave.helpdesk.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ChamadoDTO implements Serializable {
@@ -18,17 +19,12 @@ public class ChamadoDTO implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataFechamento;
 	@NotNull(message = "O campo PRIORIDADE é requerido")
-	private Integer prioridade;
-	
-	@Transient
-	private String prioridadeDescricao;
-	
+	private Integer prioridade;	
+	private String prioridadeDescricao;	
 	
 	@NotNull(message = "O campo STATUS é requerido")
-	private Integer status;
-	
-	@Transient
-	private String statusDescricao;
+	private Integer status;	
+    private String statusDescricao;
 	
 	@NotNull(message = "O campo TITULO é requerido")
 	private String titulo;
@@ -54,7 +50,7 @@ public class ChamadoDTO implements Serializable {
 		this.prioridade = obj.getPrioridade().getCodigo();
 		this.prioridadeDescricao = obj.getPrioridade().getDescricao();
 		this.status = obj.getStatus().getCodigo();
-		this.statusDescricao = obj.getStatus().getDescricao();
+		//this.statusDescricao = obj.getStatus().getDescricao();
 		this.titulo = obj.getTitulo();
 		this.observacoes = obj.getObservacoes();
 		this.tecnico = obj.getTecnico().getId();
@@ -87,36 +83,36 @@ public class ChamadoDTO implements Serializable {
 		this.dataFechamento = dataFechamento;
 	}
 
-	public Integer getPrioridade() {
-		return prioridade;
-	}
-
 	public void setPrioridade(Integer prioridade) {
 		this.prioridade = prioridade;
 	}
 
+	public Integer getPrioridade() {
+		return prioridade;
+	}
+
 	public String getPrioridadeDescricao() {
-		return prioridadeDescricao;
-	}
-
+		return Prioridade.toEnum(prioridade).getDescricao();
+	}	
+	
 	public void setPrioridadeDescricao(String prioridadeDescricao) {
-		this.prioridadeDescricao = prioridadeDescricao;
-	}
-
-	public Integer getStatus() {
-		return status;
+		this.prioridade = Prioridade.toEnum(prioridadeDescricao).getCodigo();
 	}
 
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
-	public String getStatusDescricao() {
-		return statusDescricao;
+	
+	public Integer getStatus() {
+		return status;
 	}
 
+	public String getStatusDescricao() {
+		return Status.toEnum(status).getDescricao();
+	}
+	
 	public void setStatusDescricao(String statusDescricao) {
-		this.statusDescricao = statusDescricao;
+		this.status = Status.toEnum(statusDescricao).getCodigo();
 	}
 
 	public String getTitulo() {

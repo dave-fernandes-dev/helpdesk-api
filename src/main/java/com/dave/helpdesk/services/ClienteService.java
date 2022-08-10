@@ -36,6 +36,11 @@ public class ClienteService {
 		Optional<Cliente> obj = repository.findByCpf(cpf);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto nao encontrado! CPF: " + cpf));
 	}
+	
+	public Cliente findByNome(String nome) {
+		Optional<Cliente> obj = repository.findByNome(nome);
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto nao encontrado! Nome: " + nome));
+	}
 
 	public List<Cliente> findAll() {
 		return repository.findAll();
