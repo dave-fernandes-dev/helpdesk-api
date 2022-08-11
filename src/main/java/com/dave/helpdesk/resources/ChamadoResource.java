@@ -1,6 +1,7 @@
 package com.dave.helpdesk.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dave.helpdesk.domain.Chamado;
 import com.dave.helpdesk.domain.dtos.ChamadoDTO;
+import com.dave.helpdesk.domain.enums.Status;
 import com.dave.helpdesk.services.ChamadoService;
 
 @RestController
@@ -51,9 +53,25 @@ public class ChamadoResource {
 		
 		//trara null como parametro
 		status = status.contains("null") ? "0,1,2" : status;
+
+		boolean isDescricao = false;
+		int statusArray[];
 		
-		//convert string para array de int
-		int statusArray[] = Arrays.stream(status.split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
+	    ArrayList<Integer> valores = new ArrayList<Integer>();
+		for(Status x : Status.values()) {
+			if(status.equalsIgnoreCase(x.getDescricao())) {
+				valores.add(x.getCodigo());
+				isDescricao = true;
+			}
+		}
+		
+		if (isDescricao) {			
+			status = valores.toString();
+			statusArray = Arrays.stream(status.substring(1, status.length()-1).split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();		
+		} else {			
+			//convert string para array de int
+			statusArray = Arrays.stream(status.split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();			
+		}		
 		
 		List<Chamado> list = service.findAllByFilter(titulo, statusArray);
 		List<ChamadoDTO> listDTO = list.stream().map(obj -> new ChamadoDTO(obj)).collect(Collectors.toList());
