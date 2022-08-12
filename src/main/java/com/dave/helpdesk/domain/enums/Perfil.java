@@ -33,4 +33,22 @@ public enum Perfil {
 		
 		throw new IllegalArgumentException("Perfil inválido");
 	}
+	
+	public static Perfil toEnum(String descricao) {
+		if(descricao == null) {
+			return null;
+		}
+		
+		for(Perfil x : Perfil.values()) {
+			
+			if(descricao.contains(x.getDescricao().replaceFirst("ROLE_", ""))) {
+				return x;
+				
+			} else if(descricao.equals(x.getCodigo().toString())) {
+				return x;
+			}
+		}
+		
+		throw new IllegalArgumentException("Perfil inválido");
+	}
 }

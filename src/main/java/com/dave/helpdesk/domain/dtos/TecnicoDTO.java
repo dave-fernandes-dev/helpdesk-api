@@ -27,7 +27,7 @@ public class TecnicoDTO implements Serializable {
 	protected String email;
 	@NotNull(message = "O campo SENHA é requerido")
 	protected String senha;
-	protected Set<Integer> perfis = new HashSet<>();
+	protected Set<String> perfis = new HashSet<>();
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
@@ -45,7 +45,10 @@ public class TecnicoDTO implements Serializable {
 		this.cpf = obj.getCpf();
 		this.email = obj.getEmail();
 		this.senha = obj.getSenha();
-		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		
+		//extracted(obj);
+		
+		this.perfis = obj.getPerfis().stream().map(x -> x.getDescricao()).collect(Collectors.toSet());
 		this.dataCriacao = obj.getDataCriacao();
 		addPerfil(Perfil.CLIENTE);
 		addPerfil(Perfil.TECNICO);
@@ -96,7 +99,7 @@ public class TecnicoDTO implements Serializable {
 	}
 
 	public void addPerfil(Perfil perfil) {
-		this.perfis.add(perfil.getCodigo());
+		this.perfis.add(perfil.getDescricao());
 	}
 
 	public LocalDate getDataCriacao() {
@@ -105,6 +108,14 @@ public class TecnicoDTO implements Serializable {
 
 	public void setDataCriacao(LocalDate dataCriacao) {
 		this.dataCriacao = dataCriacao;
+	}
+	
+	private void extracted(Tecnico obj) {
+		if ( obj.getPerfis().contains(Perfil.ADMIN) == true )  {
+			System.out.println("tem");
+		} else {
+			System.out.println("NAO tem");
+		}
 	}
 
 }
