@@ -2,7 +2,8 @@ package com.dave.helpdesk.domain.dtos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class TecnicoDTO implements Serializable {
 	protected String email;
 	@NotNull(message = "O campo SENHA é requerido")
 	protected String senha;
-	protected Set<String> perfis = new HashSet<>();
+	protected List<String> perfis = new ArrayList<String>();
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
@@ -48,7 +49,7 @@ public class TecnicoDTO implements Serializable {
 		
 		//extracted(obj);
 		
-		this.perfis = obj.getPerfis().stream().map(x -> x.getDescricao()).collect(Collectors.toSet());
+		this.perfis = obj.getPerfis().stream().map(x -> x.getDescricao()).collect(Collectors.toList());
 		this.dataCriacao = obj.getDataCriacao();
 		addPerfil(Perfil.CLIENTE);
 		addPerfil(Perfil.TECNICO);
