@@ -1,7 +1,9 @@
 package com.dave.helpdesk.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.dave.helpdesk.domain.Pessoa;
 import com.dave.helpdesk.domain.Tecnico;
 import com.dave.helpdesk.domain.dtos.TecnicoDTO;
+import com.dave.helpdesk.domain.enums.Perfil;
 import com.dave.helpdesk.repositories.PessoaRepository;
 import com.dave.helpdesk.repositories.TecnicoRepository;
 import com.dave.helpdesk.services.exceptions.DataIntegrityViolationException;
@@ -60,6 +63,19 @@ public class TecnicoService {
 		oldObj = new Tecnico(objDTO);
 		return repository.save(oldObj);
 	}
+	
+	public Tecnico patchPerfil(Integer id, @Valid Map<String, String> map) {
+		Set<String> perfis = Set.of(map.get("perfis").split(","));
+		Tecnico oldObj = findById(id);
+		
+		oldObj.getPerfis().clear();
+		for (String string : perfis) {
+			oldObj.addPerfil(Perfil.toEnum(string));			
+		} 		
+
+		return repository.save(oldObj);
+
+	}
 
 	public void delete(Integer id) {
 		Tecnico obj = findById(id);
@@ -82,5 +98,6 @@ public class TecnicoService {
 			throw new DataIntegrityViolationException("E-mail ja cadastrado no sistema!");
 		}
 	}
+
 
 }

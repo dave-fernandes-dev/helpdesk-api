@@ -2,6 +2,7 @@ package com.dave.helpdesk.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -55,6 +57,13 @@ public class TecnicoResource {
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO objDTO) {
 		Tecnico obj = service.update(id, objDTO);
+		return ResponseEntity.ok().body(new TecnicoDTO(obj));
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PatchMapping(value = "/{id}")
+	public ResponseEntity<TecnicoDTO> patchPerfil(@PathVariable Integer id, @Valid @RequestBody Map<String, String> map) {
+		Tecnico obj = service.patchPerfil(id, map);
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 	
