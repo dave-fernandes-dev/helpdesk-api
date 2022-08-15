@@ -68,10 +68,12 @@ public class TecnicoService {
 		Set<String> perfis = Set.of(map.get("perfis").split(","));
 		Tecnico oldObj = findById(id);
 		
-		oldObj.getPerfis().clear();
+		oldObj.clearPerfis();
+		System.out.println("veja ANTES:"+oldObj.getId()+ " "+oldObj.getPerfis());
 		for (String string : perfis) {
 			oldObj.addPerfil(Perfil.toEnum(string));			
-		} 		
+		} 	
+		System.out.println("veja DEPOIS:"+oldObj.getId()+ " "+oldObj.getPerfis());
 
 		return repository.save(oldObj);
 
