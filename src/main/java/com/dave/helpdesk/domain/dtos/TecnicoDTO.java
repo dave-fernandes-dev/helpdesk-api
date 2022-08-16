@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -29,6 +30,9 @@ public class TecnicoDTO implements Serializable {
 	@NotNull(message = "O campo SENHA é requerido")
 	protected String senha;
 	protected List<String> perfis = new ArrayList<String>();
+	
+	@Transient //FlutterFlow
+	protected String perfisFf;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
@@ -101,6 +105,10 @@ public class TecnicoDTO implements Serializable {
 
 	public void addPerfil(Perfil perfil) {
 		this.perfis.add(perfil.getDescricao());
+	}
+
+	public void setPerfisFf(String perfisFf) {
+		this.perfis = List.of(perfisFf.split(","));
 	}
 
 	public LocalDate getDataCriacao() {
