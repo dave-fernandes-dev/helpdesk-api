@@ -49,6 +49,8 @@ public enum Perfil {
 			}
 		}
 		
-		throw new IllegalArgumentException("Perfil inválido(descricao)");
+		//default
+		return Perfil.CLIENTE;
+		//throw new IllegalArgumentException("Perfil inválido(descricao)");
 	}
 }
