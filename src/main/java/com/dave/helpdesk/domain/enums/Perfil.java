@@ -41,7 +41,7 @@ public enum Perfil {
 		
 		for(Perfil x : Perfil.values()) {
 			
-			if(descricao.contains(x.getDescricao().replaceFirst("ROLE_", ""))) {
+			if(descricao.endsWith(x.getDescricao().replaceFirst("ROLE_", ""))) {
 				return x;
 				
 			} else if(descricao.equals(x.getCodigo().toString())) {
