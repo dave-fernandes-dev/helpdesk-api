@@ -53,6 +53,15 @@ public class TecnicoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	//chamados?body  //virá com resultado no body
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PostMapping(params = "body")
+	public ResponseEntity<TecnicoDTO> createWithBody(@Valid @RequestBody TecnicoDTO objDTO) {
+		Tecnico newObj = service.create(objDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
+		return ResponseEntity.created(uri).body(new TecnicoDTO(newObj));
+	}
+	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO objDTO) {
