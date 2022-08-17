@@ -2,8 +2,8 @@ package com.dave.helpdesk.domain.dtos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
@@ -27,7 +27,7 @@ public class ClienteDTO implements Serializable {
 	protected String email;
 	@NotNull(message = "O campo SENHA é requerido")
 	protected String senha;
-	protected Set<Integer> perfis = new HashSet<>();
+	protected List<String> perfis = new ArrayList<String>();
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
@@ -45,7 +45,7 @@ public class ClienteDTO implements Serializable {
 		this.email = obj.getEmail();
 		this.senha = obj.getSenha();
 		addPerfil(Perfil.CLIENTE);
-		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		this.perfis = obj.getPerfis().stream().map(x -> x.getDescricao()).collect(Collectors.toList());
 		this.dataCriacao = obj.getDataCriacao();
 
 	}
@@ -90,12 +90,12 @@ public class ClienteDTO implements Serializable {
 		this.senha = senha;
 	}
 
-	public Set<Perfil> getPerfis() {
-		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	public List<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toList());
 	}
 
 	public void addPerfil(Perfil perfil) {
-		this.perfis.add(perfil.getCodigo());
+		this.perfis.add(perfil.getDescricao());
 	}
 
 	public LocalDate getDataCriacao() {
