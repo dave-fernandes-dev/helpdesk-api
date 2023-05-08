@@ -119,12 +119,12 @@ public class TecnicoDTO implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 	
-	private void extracted(Tecnico obj) {
-		if ( obj.getPerfis().contains(Perfil.ADMIN) == true )  {
-			System.out.println("tem");
-		} else {
-			System.out.println("NAO tem");
-		}
-	}
+//	private void extracted(Tecnico obj) {
+//		if ( obj.getPerfis().contains(Perfil.ADMIN) == true )  {
+//			System.out.println("tem");
+//		} else {
+//			System.out.println("NAO tem");
+//		}
+//	}
 
 }

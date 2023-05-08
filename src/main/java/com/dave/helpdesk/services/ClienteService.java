@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.dave.helpdesk.domain.Chamado;
 import com.dave.helpdesk.domain.Cliente;
 import com.dave.helpdesk.domain.Pessoa;
 import com.dave.helpdesk.domain.dtos.ClienteDTO;
@@ -40,6 +41,10 @@ public class ClienteService {
 	public Cliente findByNome(String nome) {
 		Optional<Cliente> obj = repository.findByNome(nome);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto nao encontrado! Nome: " + nome));
+	}
+	
+	public List<Cliente> findAllByFilter(String search) {
+		return repository.findByFilter(search);
 	}
 
 	public List<Cliente> findAll() {

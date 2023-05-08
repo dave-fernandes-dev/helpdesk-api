@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.dave.helpdesk.domain.Chamado;
 import com.dave.helpdesk.domain.Cliente;
+import com.dave.helpdesk.domain.dtos.ChamadoDTO;
 import com.dave.helpdesk.domain.dtos.ClienteDTO;
 import com.dave.helpdesk.services.ClienteService;
 
@@ -39,6 +41,17 @@ public class ClienteResource {
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> list = service.findAll();
+		List<ClienteDTO> listDTO = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
+	
+	//clientes?filter&search=search
+	@GetMapping(params = "filter")
+	public ResponseEntity<List<ClienteDTO>> findByFilter(@RequestParam(defaultValue = "") String search) {
+		
+		//System.out.println("titulo:"+titulo+ " status:"+ status);
+	
+		List<Cliente> list = service.findAllByFilter(search);
 		List<ClienteDTO> listDTO = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}

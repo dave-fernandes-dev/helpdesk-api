@@ -52,6 +52,7 @@ public class ChamadoService {
 		return repository.save(oldObj);
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	private Chamado newChamado(ChamadoDTO obj) {
 		
 		Tecnico tecnico = null;
