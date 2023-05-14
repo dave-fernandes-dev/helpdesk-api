@@ -39,6 +39,11 @@ public class TecnicoService {
 		Optional<Tecnico> obj = repository.findByNome(nome);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto nao encontrado! Nome: " + nome));
 	}
+	
+	public Tecnico findByCpf(String cpf) {
+		Optional<Tecnico> obj = repository.findByCpf(cpf);
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto nao encontrado! CPF: " + cpf));
+	}
 
 	public List<Tecnico> findAll() {
 		return repository.findAll();

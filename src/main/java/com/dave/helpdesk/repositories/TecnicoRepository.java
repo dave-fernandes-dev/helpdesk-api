@@ -9,5 +9,7 @@ import com.dave.helpdesk.domain.Tecnico;
 public interface TecnicoRepository extends JpaRepository<Tecnico, Integer> {
 	
 	Optional<Tecnico> findByNome(String nome);
+	
+	Optional<Tecnico> findByCpf(String cpf);
 
 }

@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dave.helpdesk.domain.Tecnico;
+import com.dave.helpdesk.domain.dtos.ClienteDTO;
 import com.dave.helpdesk.domain.dtos.TecnicoDTO;
 import com.dave.helpdesk.services.TecnicoService;
 
@@ -35,6 +37,13 @@ public class TecnicoResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
 		Tecnico obj = service.findById(id);
+		return ResponseEntity.ok().body(new TecnicoDTO(obj));
+	}
+	
+	//tecnicos/{cpf}?cpf
+	@GetMapping(value = "/{cpf}", params = "cpf")
+	public ResponseEntity<TecnicoDTO> findByCpf(@PathVariable String cpf) {
+		Tecnico obj = service.findByCpf(cpf);
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 
@@ -53,7 +62,7 @@ public class TecnicoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	//chamados?body  //virá com resultado no body
+	//tecnicos?body  //virá com resultado no body
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping(params = "body")
 	public ResponseEntity<TecnicoDTO> createWithBody(@Valid @RequestBody TecnicoDTO objDTO) {
