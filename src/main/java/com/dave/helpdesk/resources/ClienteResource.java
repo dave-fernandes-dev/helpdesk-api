@@ -21,8 +21,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dave.helpdesk.domain.Chamado;
 import com.dave.helpdesk.domain.Cliente;
+import com.dave.helpdesk.domain.Tecnico;
 import com.dave.helpdesk.domain.dtos.ChamadoDTO;
 import com.dave.helpdesk.domain.dtos.ClienteDTO;
+import com.dave.helpdesk.domain.dtos.TecnicoDTO;
 import com.dave.helpdesk.services.ClienteService;
 
 @RestController
@@ -44,6 +46,13 @@ public class ClienteResource {
 		List<ClienteDTO> listDTO = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
+	
+	//clientes/{cpf}?cpf
+	@GetMapping(value = "/{cpf}", params = "cpf")
+	public ResponseEntity<ClienteDTO> findByCpf(@PathVariable String cpf) {
+		Cliente obj = service.findByCpf(cpf);
+		return ResponseEntity.ok().body(new ClienteDTO(obj));
+	}	
 	
 	//clientes?filter&search=search
 	@GetMapping(params = "filter")

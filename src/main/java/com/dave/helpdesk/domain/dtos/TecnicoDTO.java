@@ -100,6 +100,11 @@ public class TecnicoDTO implements Serializable {
 	}
 
 	public Set<Perfil> getPerfis() {
+		if (perfis == null) { 
+			perfis = new ArrayList<String>();
+			addPerfil(Perfil.TECNICO); 
+		}		
+		
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 

@@ -44,6 +44,12 @@ public class DBService {
 		Cliente cli4 = new Cliente(null, "Stephen Hawking", "17740968030", "hawking@mail.com", encoder.encode("123"));
 		Cliente cli5 = new Cliente(null, "Max Planck", "08139930083", "planck@mail.com", encoder.encode("123"));
  
+		Cliente cli6 = new Cliente(null, "Cliente 6", "33506478044", "cli6@mail.com", encoder.encode("123"));
+		Cliente cli7 = new Cliente(null, "Cliente 7", "81818966026", "cli7@mail.com", encoder.encode("123"));
+		Cliente cli8 = new Cliente(null, "Cliente 8", "81676722041", "cli8@mail.com", encoder.encode("123"));
+		Cliente cli9 = new Cliente(null, "Cliente 9", "48674650031", "cli9@mail.com", encoder.encode("123"));
+		Cliente cli10 = new Cliente(null, "Cliente 10", "05967418040", "cli10@mail.com", encoder.encode("123"));		
+		
 		Chamado c1 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 1", "Teste chamado 1", tec1, cli1);
 		Chamado c2 = new Chamado(null, Prioridade.ALTA, Status.ABERTO, "Chamado 2", "Teste chamado 2", tec1, cli2);
 		Chamado c3 = new Chamado(null, Prioridade.BAIXA, Status.ENCERRADO, "Chamado 3", "Teste chamado 3", tec2, cli3, LocalDate.now());
@@ -51,7 +57,7 @@ public class DBService {
 		Chamado c5 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 5", "Teste chamado 5", tec2, cli1);
 		Chamado c6 = new Chamado(null, Prioridade.BAIXA, Status.ENCERRADO, "Chamado 7", "Teste chamado 6", tec1, cli5, LocalDate.now());
 
-		pessoaRepository.saveAll(Arrays.asList(tec0, tec1, tec2, tec3, tec4, tec5, cli1, cli2, cli3, cli4, cli5));
+		pessoaRepository.saveAll(Arrays.asList(tec0, tec1, tec2, tec3, tec4, tec5, cli1, cli2, cli3, cli4, cli5, cli6, cli7, cli8, cli9, cli10));
 		chamadoRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6));
 	}
 }
