@@ -51,6 +51,12 @@ public class ChamadoService {
 		oldObj = newChamado(objDTO);
 		return repository.save(oldObj);
 	}
+	
+	public void delete(Integer id) {
+		//Chamado obj = findById(id);
+		//checaIntegridadeReferencial(obj); 
+		repository.deleteById(id);
+	}
 
 	@SuppressWarnings("unlikely-arg-type")
 	private Chamado newChamado(ChamadoDTO obj) {
