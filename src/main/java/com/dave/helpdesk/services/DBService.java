@@ -28,9 +28,12 @@ public class DBService {
 
 	public void instanciaDB() {
 
-		Tecnico tec0 = new Tecnico(null, "Dave Fernandes", "79138309050", "dave.fernandes.dev@gmail.com", encoder.encode("123"));
+		Tecnico tec0 = new Tecnico(null, "Dave Fernandes", "79138309050", "dave.fernandes.dev@gmail.com", encoder.encode("123456"));
 		tec0.addPerfil(Perfil.ADMIN);
 
+		Tecnico tec01 = new Tecnico(null, "Admin", "22781508047", "admin@mail.com", encoder.encode("123"));
+		tec01.addPerfil(Perfil.ADMIN);		
+		
 		Tecnico tec1 = new Tecnico(null, "Valdir Cezar", "55048215095", "valdir@mail.com", encoder.encode("123"));
 		tec1.addPerfil(Perfil.ADMIN);
 		Tecnico tec2 = new Tecnico(null, "Richard Stallman", "90334707056", "stallman@mail.com", encoder.encode("123"));
@@ -64,7 +67,7 @@ public class DBService {
 		Chamado c12= new Chamado(null, Prioridade.BAIXA, Status.ENCERRADO, "Chamado 7", "Teste chamado 6", tec1, cli5, LocalDate.now());
 
 
-		pessoaRepository.saveAll(Arrays.asList(tec0, tec1, tec2, tec3, tec4, tec5, cli1, cli2, cli3, cli4, cli5, cli6, cli7, cli8, cli9, cli10));
+		pessoaRepository.saveAll(Arrays.asList(tec0, tec01, tec1, tec2, tec3, tec4, tec5, cli1, cli2, cli3, cli4, cli5, cli6, cli7, cli8, cli9, cli10));
 		chamadoRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6,c7, c8, c9, c10, c11, c12));
 	}
 }
